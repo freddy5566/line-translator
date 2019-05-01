@@ -1,0 +1,23 @@
+version: 2
+
+jobs:
+  hello_world_job:
+    docker:
+      - image: circleci/python:3.6.5-stretch
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: venv-{{ checksum "Pipfile.lock" }}
+
+      - run:
+          name: install dependencies
+          command: |
+            pip3 install pipenv
+            pipenv install
+
+      - run:
+          name: execute hello world
+          command: |
+            echo 'hello world'
