@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  hello_world_job:
+  build:
     docker:
       - image: circleci/python:3.6.5-stretch
 
