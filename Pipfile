@@ -9,6 +9,7 @@ autopep8 = "*"
 [packages]
 flask = "*"
 line-bot-sdk = "*"
+google-cloud-translate = "*"
 
 [requires]
 python_version = "3.6"

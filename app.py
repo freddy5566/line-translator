@@ -1,4 +1,5 @@
 from flask import Flask, request, abort
+from translator import Translator
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -11,6 +12,7 @@ from linebot.models import (
 import os
 
 app = Flask(__name__)
+translator = Translator()
 
 line_bot_api = LineBotApi(os.environ['YOUR_CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['YOUR_CHANNEL_SECRET'])
@@ -35,11 +37,24 @@ def callback():
     return 'OK'
 
 
+def handle_translation(message):
+    translator = Translator()
+    translator.detect_language(message)
+    result = None
+    try:
+        result = translator.translate_text_with_model(
+            translator.target_language, message)
+    except:
+        result = 'Sorry cannnot translate your message'
+    return result
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    translated_result = handle_message(event.message.text)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text=translated_result))
 
 
 if __name__ == "__main__":
