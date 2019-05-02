@@ -38,7 +38,7 @@ class Translator(object):
         # [END translate_detect_language]
 
     def setup_language(self, detected_language):
-        self._text_language = result['language']
+        self._text_language = detected_language
         target_language = 'ja' if detected_language == 'zh-TW' else 'zh-TW'
         self._target_language = target_language
 
