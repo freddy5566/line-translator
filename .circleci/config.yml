@@ -16,8 +16,3 @@ jobs:
           command: |
             pip3 install pipenv
             pipenv install
-
-      - run:
-          name: build
-          command: |
-            pipenv run python3 app.py
