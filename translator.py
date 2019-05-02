@@ -38,8 +38,8 @@ class Translator(object):
         # [END translate_detect_language]
 
     def setup_language(self, detected_language):
-        self._text_language = result['language']
-        target_language = 'ja' if detected_language == 'zh-TW' else 'zh-TW'
+        self._text_language = detected_language
+        target_language = 'ja' if detected_language == 'zh-TW' or detected_language == 'zh-CN' else 'zh-TW'
         self._target_language = target_language
 
     def list_languages(self):
@@ -112,5 +112,7 @@ class Translator(object):
 
 if __name__ == '__main__':
     trans = Translator()
-    result = trans.translate_text_with_model('en', '哈囉 世界')
+    trans.detect_language('哈囉 世界')
+    result = trans.translate_text_with_model(trans.target_language, '哈囉 世界')
     print('result is {}'.format(result))
+    print(trans.detect_language)

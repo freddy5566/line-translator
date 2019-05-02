@@ -51,7 +51,7 @@ def handle_translation(message):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    translated_result = handle_message(event.message.text)
+    translated_result = handle_translation(event.message.text)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=translated_result))
